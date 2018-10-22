@@ -1,0 +1,36 @@
+.footer-twitter {
+  height: 30px;
+}
+
+.footer-linkedin {
+  height: 30px;
+}
+
+.footer-github {
+  height: 30px;
+}
+
+footer.footer {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background-color: #f6f6f6;
+}
+
+  footer.footer .social-link {
+    display: block;
+    height: 4rem;
+    width: 4rem;
+    line-height: 4.3rem;
+    font-size: 1.5rem;
+    background-color: #585858;
+    -webkit-transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
+    -webkit-box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.1);
+  }
+
+    footer.footer .social-link:hover {
+      background-color: #f2849e;
+      text-decoration: none;
+      color: #ffffff !important;
+    }

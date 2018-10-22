@@ -15,6 +15,9 @@ using System;
  * Open the Package Manager Console
  * Run: Add-Migration InitialCreate
  * Run: Update-Database
+ * 
+ * https://isbndb.com/
+ * in this site we have an API
  */
 
 namespace Bookshelf

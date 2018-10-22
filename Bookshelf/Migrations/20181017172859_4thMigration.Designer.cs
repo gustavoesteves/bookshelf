@@ -4,14 +4,16 @@ using Bookshelf.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bookshelf.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181017172859_4thMigration")]
+    partial class _4thMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -109,15 +111,11 @@ namespace Bookshelf.Migrations
 
                     b.Property<int>("Pages");
 
-                    b.Property<int>("PublisherId");
-
                     b.Property<string>("Synopsys");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
@@ -138,7 +136,7 @@ namespace Bookshelf.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookAuthors");
+                    b.ToTable("BookAuthor");
                 });
 
             modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookUser", b =>
@@ -161,7 +159,7 @@ namespace Bookshelf.Migrations
 
                     b.HasIndex("BookId");
 
-                    b.ToTable("BookUsers");
+                    b.ToTable("UserBooks");
                 });
 
             modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Publisher", b =>
@@ -170,6 +168,8 @@ namespace Bookshelf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("BookId");
+
                     b.Property<string>("Category");
 
                     b.Property<string>("Location");
@@ -177,6 +177,8 @@ namespace Bookshelf.Migrations
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookId");
 
                     b.ToTable("Publishers");
                 });
@@ -291,14 +293,6 @@ namespace Bookshelf.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Book", b =>
-                {
-                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookAuthor", b =>
                 {
                     b.HasOne("Bookshelf.Models.BookshelfViewModels.Author", "Author")
@@ -320,6 +314,14 @@ namespace Bookshelf.Migrations
 
                     b.HasOne("Bookshelf.Models.BookshelfViewModels.Book", "Books")
                         .WithMany("UserBooks")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Publisher", b =>
+                {
+                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Book", "Book")
+                        .WithMany("Publishers")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

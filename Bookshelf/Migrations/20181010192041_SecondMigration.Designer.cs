@@ -4,18 +4,20 @@ using Bookshelf.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bookshelf.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181010192041_SecondMigration")]
+    partial class SecondMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -68,117 +70,6 @@ namespace Bookshelf.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authors");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DatePublished");
-
-                    b.Property<string>("Dimensions");
-
-                    b.Property<string>("Edition");
-
-                    b.Property<string>("Format");
-
-                    b.Property<string>("ISBN");
-
-                    b.Property<string>("ISBN13");
-
-                    b.Property<string>("Language");
-
-                    b.Property<string>("LongTitle");
-
-                    b.Property<string>("Overview");
-
-                    b.Property<int>("Pages");
-
-                    b.Property<int>("PublisherId");
-
-                    b.Property<string>("Synopsys");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookAuthor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId");
-
-                    b.Property<int>("BookId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookAuthors");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ApplicationUsersId");
-
-                    b.Property<int>("BookId");
-
-                    b.Property<string>("Comment");
-
-                    b.Property<bool>("Public");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUsersId");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("BookUsers");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Category");
-
-                    b.Property<string>("Location");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -289,39 +180,6 @@ namespace Bookshelf.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.Book", b =>
-                {
-                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookAuthor", b =>
-                {
-                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Author", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Book", "Book")
-                        .WithMany("BookAuthors")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Bookshelf.Models.BookshelfViewModels.BookUser", b =>
-                {
-                    b.HasOne("Bookshelf.Models.ApplicationUser", "ApplicationUsers")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUsersId");
-
-                    b.HasOne("Bookshelf.Models.BookshelfViewModels.Book", "Books")
-                        .WithMany("UserBooks")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

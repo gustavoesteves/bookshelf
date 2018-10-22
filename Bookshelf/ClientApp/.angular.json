@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
+  "defaultProject": "Bookshelf",
   "newProjectRoot": "projects",
   "projects": {
     "default-login": {
@@ -23,10 +23,10 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               {
-                "input": "./node_modules/bootstrap/dist/css/bootstrap.css"
-              }
+                "input": "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+              },
+              "src/styles.css"
             ]
           },
           "configurations": {
@@ -125,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "Bookshelf"
+  "version": 1
 }
